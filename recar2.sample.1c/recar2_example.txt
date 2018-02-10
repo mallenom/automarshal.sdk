@@ -1,0 +1,54 @@
+&НаКлиенте
+Перем Core Экспорт;
+
+&НаКлиенте
+Процедура ПриОткрытии(Отказ)
+	Core = Новый COMобъект("Recar2.Com.VideoCoreCom");
+	// Подписка на событие распознавания ГРЗ
+	ДобавитьОбработчик Core.NumberRecognized, Recognized;
+	// Задание числа каналов видео
+	Core.VideoProcessChannelCount = 2;
+	// Инициализация
+	Core.Initialize();
+	// Загрузка настроек
+	Core.LoadSettings();
+	// Настроить показ видеоокон
+	Core.SetVideoFormsVisible(true);
+	Core.SetVideoFormsLocked(false);
+	Core.SetVideoFormsTopMost(false);
+	// Запуск
+	Core.Start();
+КонецПроцедуры
+
+&НаКлиенте
+Процедура Recognized(Data)
+	Сообщить("Распознан номер: " + Data.Number);
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ПриЗакрытии()
+	Core.Stop();
+	// Сохранение настроек
+	Core.SaveSettings();
+	Core.Dispose();
+	Core = null;
+КонецПроцедуры
+
+&НаКлиенте
+Процедура Настройка(Команда)
+	Сообщить("Настройка");
+	Core.ShowSetupForm();
+	// Перезапуск с новыми настройками
+	Core.Stop();
+	Core.Start();
+КонецПроцедуры
+
+&НаКлиенте
+Процедура Старт(Команда)
+	Core.Start();
+КонецПроцедуры
+
+&НаКлиенте
+Процедура Стоп(Команда)
+	Core.Stop();
+КонецПроцедуры

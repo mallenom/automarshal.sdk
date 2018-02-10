@@ -1,0 +1,11 @@
+mallenom.video.ipcam.dll
+mallenom.video.ipcam.bosch.dll
+mallenom.video.ipcam.linia.dll
+mallenom.video.dshow.dll
+mallenom.video.pci.dll
+mallenom.video.rtsp.dll
+mallenom.video.vlc.dll
+mallenom.vlc.dll
+Bosch.VideoSDK.GCALib.dll
+Bosch.VideoSDK.StreamItemsLib.dll
+

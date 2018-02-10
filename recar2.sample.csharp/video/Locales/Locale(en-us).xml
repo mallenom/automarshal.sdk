@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Localization>
+  <Scope Id="Recar2">
+    <Scope Id="SplashForm">
+      <String Id="LoadingCore">Loading core...</String>
+    </Scope>
+    <Scope Id="MainForm">
+      <String Id="Title">Recognition core sample for videostream (version {0} / {1})</String>
+      <String Id="Motion">Motion</String>
+      <String Id="NewWindow">New window</String>
+      <String Id="Capture">Capture</String>
+      <String Id="Start">Start</String>
+      <String Id="Stop">Stop</String>
+      <String Id="Setup">Setup</String>
+      <String Id="EmbeddedSetup">Embedded setup</String>
+      <String Id="MySetup">My setup</String>
+      <String Id="Stencils">Stencils</String>
+      <String Id="Record">Record</String>
+      <String Id="Images">Images</String>
+      <String Id="Log">Log</String>
+      <String Id="IsSavingImages">Save the image in the catalog:</String>
+      <String Id="Browse">Browse</String>
+      <String Id="Format">Format</String>
+    </Scope>
+  </Scope>
+</Localization>

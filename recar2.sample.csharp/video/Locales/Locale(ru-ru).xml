@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Localization>
+  <Scope Id="Recar2">
+    <Scope Id="SplashForm">
+      <String Id="LoadingCore">Загрузка ядра...</String>
+    </Scope>
+    <Scope Id="MainForm">
+      <String Id="Title">Пример использования ядра распознавания ПО Автомаршал (версия {0} / {1})</String>
+      <String Id="Motion">Движение</String>
+      <String Id="NewWindow">В отдельном окне</String>
+      <String Id="Capture">Видеоввод</String>
+      <String Id="Start">Старт</String>
+      <String Id="Stop">Стоп</String>
+      <String Id="Setup">Настройка</String>
+      <String Id="EmbeddedSetup">Встроенная настройка</String>
+      <String Id="MySetup">Своя форма настройки</String>
+      <String Id="Stencils">Шаблоны номеров</String>
+      <String Id="Record">Запись видео</String>
+      <String Id="Images">Изображения</String>
+      <String Id="Log">Лог</String>
+      <String Id="IsSavingImages">Сохранять изображения в каталог:</String>
+      <String Id="Browse">Обзор</String>
+      <String Id="Format">В формате</String>
+    </Scope>
+  </Scope>
+</Localization>
