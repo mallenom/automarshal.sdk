@@ -81,28 +81,22 @@
       <DependentUpon>SplashForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="postbuild.cmd" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mallenom.framework">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\refs\mallenom.framework.dll</HintPath>
+      <HintPath>..\..\binaries.x64\mallenom.framework.dll</HintPath>
     </Reference>
     <Reference Include="mallenom.imaging">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\refs\mallenom.imaging.dll</HintPath>
+      <HintPath>..\..\binaries.x64\mallenom.imaging.dll</HintPath>
     </Reference>
     <Reference Include="recar2">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\refs\recar2.dll</HintPath>
+      <HintPath>..\..\binaries.x64\recar2.dll</HintPath>
     </Reference>
     <Reference Include="recar2.kernel">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\refs\recar2.kernel.dll</HintPath>
+      <HintPath>..\..\binaries.x64\recar2.kernel.dll</HintPath>
     </Reference>
     <Reference Include="recar2.kernel.ui">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\refs\recar2.kernel.ui.dll</HintPath>
+      <HintPath>..\..\binaries.x64\recar2.kernel.ui.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -125,7 +119,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>..\..\..\postbuild.cmd</PostBuildEvent>
+    <PostBuildEvent>@xcopy /Y/Q/S ..\..\..\..\..\binaries.$(PlatformName)\*.dll</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

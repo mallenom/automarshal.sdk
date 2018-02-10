@@ -1,0 +1,714 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>recar2</name>
+    </assembly>
+    <members>
+        <member name="T:Recar2.AssemblyTimeStampAttribute">
+            <summary>Атрибут для пометки сборки временем компиляции и коммита.</summary>
+        </member>
+        <member name="T:Recar2.Internals.BaseCore">
+            <summary>Базовый класс ядра.</summary>
+        </member>
+        <member name="P:Recar2.Internals.BaseCore.Version">
+            <summary>Возвращает строку с версией Ядра распознавания.</summary>
+        </member>
+        <member name="P:Recar2.Internals.BaseCore.FullVersion">
+            <summary>Возвращает строку с полной версией Ядра распознавания.</summary>
+        </member>
+        <member name="P:Recar2.Internals.BaseCore.Settings">
+            <summary>Возвращает набор настроек.</summary>
+        </member>
+        <member name="P:Recar2.Internals.BaseCore.LicenseInfo">
+            <summary>Возвращает информацию о лицензии.</summary>
+        </member>
+        <member name="P:Recar2.Internals.BaseCore.ImageProcessMinDuration">
+            <summary>Возвращает минимальное время распознавания одного изображения, мс.</summary>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.#ctor(Recar2.Internals.BaseCoreInitializationParameters)">
+            <summary></summary>
+            <param name="initializationParameters"></param>
+            <exception cref="T:Recar2.Protection.ProtectionException">
+            Ошибка запуска ядра, связанная с нарушением защиты.
+            Подробности см. <see cref="P:Recar2.Protection.ProtectionException.ErrorCode"/>.
+            </exception>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.Dispose">
+            <summary>Освобождает ресурсы ядра распознавания.</summary>
+        </member>
+        <member name="P:Recar2.Internals.BaseCore.Channels">
+            <summary>Возвращает список каналов.</summary>
+        </member>
+        <member name="P:Recar2.Internals.BaseCore.ChannelCount">
+            <summary>Возвращает количество видеоканалов.</summary>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.GetChannel(System.Int32)">
+            <summary>Возвращает канал с указанным номером.</summary>
+            <param name="channelNum">Номер канала, начиная с 0.</param>
+            <returns>Указанный видеоканал.</returns>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.ChannelExists(System.Int32)">
+            <summary>Возвращает значение, показывающее есть ли канал с указанным номером.</summary>
+            <param name="channelNum">Номер канала, начиная с 0.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.Initialize">
+            <summary>Инициализирует ядро распознавания.</summary>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.SaveSettings">
+            <summary>Сохраняет настройки в файл конфигурации.</summary>
+            <remarks>
+            Осуществляет запись во временный файл.
+            Создает резервную копию заменяемого файла.
+            </remarks>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.LoadSettings">
+            <summary>Загружает настройки из файла конфигурации.</summary>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.ShowAlgSetupForm(System.Windows.Forms.IWin32Window,System.Int32)">
+            <summary>Показывает окно настроек алгоритмов для указанного канала.</summary>
+            <param name="owner"></param>
+            <param name="channelNum"></param>
+        </member>
+        <member name="M:Recar2.Internals.BaseCore.SetupTransformation(System.Windows.Forms.IWin32Window,Recar2.Core.IVideoChannel)">
+            <summary>Показывает окно коррекции изображений для указанного канала.</summary>
+            <param name="owner"></param>
+            <param name="channel"></param>
+        </member>
+        <member name="T:Recar2.Internals.BaseCoreInitializationParameters">
+            <summary>Параметры инициализации.</summary>
+        </member>
+        <member name="P:Recar2.Internals.BaseCoreInitializationParameters.UseIntegratedLogSubsystem">
+            <summary>Возвращает и устанавливает флаг использования собственной подсистемы логгирования ядра.</summary>
+            <value><c>true</c> - ядро использует свою подсистему логгирования, иначе - <c>false</c>.</value>
+        </member>
+        <member name="P:Recar2.Internals.BaseCoreInitializationParameters.LogDirectory">
+            <summary>Возвращает и устанавливает директорию для хранения логов.</summary>
+            <value>Директория для хранения логов.</value>
+            <remarks>
+            Если значение равно <c>null</c> или <see cref="F:System.String.Empty"/>,
+            то логи буду храниться в директории %ProgramData%\Mallenom Systems\Recar2Core\logs.
+            </remarks>
+        </member>
+        <member name="P:Recar2.Internals.BaseCoreInitializationParameters.ConfigFilename">
+            <summary>Возвращает и устанавливает имя файла конфигурации.</summary>
+            <remarks>
+            Если значение равно <c>null</c> или <see cref="F:System.String.Empty"/>,
+            то настройки буду храниться в файле %ProgramData%\Mallenom Systems\Recar2Core\configs\recar2.cfg.
+            </remarks>
+        </member>
+        <member name="P:Recar2.Internals.BaseCoreInitializationParameters.LicenseFileLocation">
+            <summary>Возвращает и устанавливает путь к директории, в которой следует искать файл лицензии.</summary>
+            <value>
+            Путь к директории, в которой следует искать файл лицензии,
+            или <c>null</c>, если файл лицензии находится рядом с exe-файлом приложения.
+            </value>
+        </member>
+        <member name="P:Recar2.Internals.BaseCoreInitializationParameters.Advanced">
+            <summary>Устанавливает и возвращает значение, которое показывает режим запуска ядра.</summary>
+            <value>Если <c>true</c>, то ядро запускается в Специальном режиме.</value>
+        </member>
+        <member name="P:Recar2.Internals.BaseCoreInitializationParameters.ConvertPlateToCapsLatin">
+            <summary>
+            Устанавливает и возвращает значение,
+            показывающее преобразовывать ли номер в латинские символы верхнего регистра.
+            </summary>
+            <value>Если необходимо преобразовывать, то <c>true</c>, иначе <c>false</c>.</value>
+        </member>
+        <member name="P:Recar2.Internals.BaseCoreInitializationParameters.TrialDelegate">
+            <summary>Устанавливает и возвращает делегат, необходимый для активации/запуска пробной версии ядра.</summary>
+            <remarks>
+            Пробная версия работоспособна в течение 14 дней со времени первой активации ее на конкретном ПК.
+            </remarks>
+        </member>
+        <member name="P:Recar2.Internals.BaseCoreInitializationParameters.AutoSaveConfiguration">
+            <summary>
+            Устанавливает и возвращает значение,
+            показывающее необходимо ли сохранять параметры ядра при его деинициализации.
+            </summary>
+            <value>Если необходимо сохранять, то <c>true</c>, иначе <c>false</c>.</value>
+            <remarks>Пока работает только для COM!</remarks>
+        </member>
+        <member name="M:Recar2.BaseCoreExtensions.ShowSetupForm(Recar2.Internals.BaseCore,System.Windows.Forms.IWin32Window)">
+            <summary>Показать форму настроек ядра.</summary>
+            <param name="core">Ядро.</param>
+            <param name="owner">Владелец окна.</param>
+            <returns>Результат закрытия формы.</returns>
+        </member>
+        <member name="T:Recar2.ChannelSpeed">
+            <summary>Тип канала по скорости ТС.</summary>
+        </member>
+        <member name="F:Recar2.ChannelSpeed.Slow">
+            <summary>Максимальная скорость ТС до 30 км/ч.</summary>
+        </member>
+        <member name="F:Recar2.ChannelSpeed.Fast">
+            <summary>Максимальная скорость ТС до 150 км/ч.</summary>
+        </member>
+        <member name="T:Recar2.LicenseInfo">
+            <summary>Информация о лицензии.</summary>
+        </member>
+        <member name="P:Recar2.LicenseInfo.Owner">
+            <summary>Возвращает имя владельца ключа защиты и лицензии.</summary>
+        </member>
+        <member name="P:Recar2.LicenseInfo.VideoProcessChannelCount">
+            <summary>Возвращает и устанавливает количество каналов обработки видео.</summary>
+        </member>
+        <member name="P:Recar2.LicenseInfo.VideoOnlyViewChannelCount">
+            <summary>Возвращает количество каналов просмотра видео.</summary>
+        </member>
+        <member name="P:Recar2.LicenseInfo.ImageProcessChannelCount">
+            <summary>Возвращает количество каналов обработки изображений.</summary>
+        </member>
+        <member name="P:Recar2.LicenseInfo.Speed">
+            <summary>Возвращает тип канал, показывающего максимальную скорость ТС, при которой оно будет распознаваться.</summary>
+        </member>
+        <member name="M:Recar2.CoreExtensions.GetSampleImage(Recar2.Core.StencilInfo,System.Int32,System.Int32,System.Drawing.Color,System.Single)">
+            <summary>Возвращает пример изображения шаблона номера.</summary>
+            <param name="stencil">Шаблон номера.</param>
+            <param name="width">Требуемая ширина изображения.</param>
+            <param name="height">Требуемая высота изображения.</param>
+            <param name="backColor">Требуемый цвет фона изображения.</param>
+            <param name="opacity">Требуемая прозрачность изображения.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Recar2.MovementDirection">
+            <summary>Направление движения ТС по кадру.</summary>
+        </member>
+        <member name="F:Recar2.MovementDirection.Undefined">
+            <summary>Не определено.</summary>
+        </member>
+        <member name="F:Recar2.MovementDirection.BottomUp">
+            <summary>Снизу вверх.</summary>
+        </member>
+        <member name="F:Recar2.MovementDirection.TopDown">
+            <summary>Сверху вниз.</summary>
+        </member>
+        <member name="T:Recar2.ExtPlateNumber">
+            <summary>Информация о номере, распознанном в видеопотоке.</summary>
+        </member>
+        <member name="P:Recar2.ExtPlateNumber.MovementDirection">
+            <summary>Возвращает направления движения ТС в кадре.</summary>
+        </member>
+        <member name="P:Recar2.ExtPlateNumber.FramesTimeStamps">
+            <summary>Возвращает временные метки кадров.</summary>
+        </member>
+        <member name="T:Recar2.ImageCoreExtensions">
+            <summary>Методы расширения для <see cref="T:Recar2.ImageCore" />.</summary>
+        </member>
+        <member name="M:Recar2.ImageCoreExtensions.ShowCaptureAreaAndPlateSizeSetupForm(Recar2.Core.IVideoChannel,Mallenom.Imaging.IImageMatrix,System.Windows.Forms.IWin32Window)">
+            <summary>Показывает форму настройки области распознавания и размеров номера.</summary>
+            <param name="channel">Видеоканал.</param>
+            <param name="matrix"></param>
+            <param name="owner">Владелец окна.</param>
+            <returns>Результат закрытия формы.</returns>
+        </member>
+        <member name="T:Recar2.ImageProcessLimiter">
+            <summary>Класс ограничивающий трафик обработки изображений.</summary>
+        </member>
+        <member name="M:Recar2.ImageProcessLimiter.#ctor(System.TimeSpan,System.Int32)">
+            <summary>Создает объект ограничителя.</summary>
+            <param name="timeInterval">Интервал времени.</param>
+            <param name="imageCount">Максимальное количество изображений, обрабатываемых в указанный интервал времени.</param>
+        </member>
+        <member name="M:Recar2.Internal.ConvenientAlgorithmSettings.#ctor">
+            <summary>Создание <see cref="T:Recar2.Internal.ConvenientAlgorithmSettings" />.</summary>
+        </member>
+        <member name="T:Recar2.ProcessingStrategy">
+            <summary>Стратегия распознавания номера.</summary>
+        </member>
+        <member name="F:Recar2.ProcessingStrategy.Base">
+            <summary>Базовая версия.</summary>
+        </member>
+        <member name="F:Recar2.ProcessingStrategy.PreLocalization">
+            <summary>Улучшенная версия.</summary>
+        </member>
+        <member name="F:Recar2.ProcessingStrategy.Lite">
+            <summary>Быстрая версия. Используется по умолчанию.</summary>
+        </member>
+        <member name="T:Recar2.ZoneSizeMode">
+            <summary>Способ задания размеров зоны на изображении.</summary>
+        </member>
+        <member name="F:Recar2.ZoneSizeMode.Relative">
+            <summary>Относительно размеров кадра.</summary>
+        </member>
+        <member name="F:Recar2.ZoneSizeMode.Pixel">
+            <summary>В пикселях.</summary>
+        </member>
+        <member name="T:Recar2.ZoneSearchMethod">
+            <summary>Поведение в случае нескольких номеров на кадре.</summary>
+        </member>
+        <member name="F:Recar2.ZoneSearchMethod.FirstGood">
+            <summary>Передавать первый распознанный.</summary>
+        </member>
+        <member name="F:Recar2.ZoneSearchMethod.ProcessAll">
+            <summary>Передавать все.</summary>
+        </member>
+        <member name="T:Recar2.Roi">
+            <summary>Рамка области интереса.</summary>
+        </member>
+        <member name="M:Recar2.SettingUtility.CreateStorage``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>Вспомогательный класс для генерации хранилищ значений параметров.</summary>
+            <summary>Создает хранилище значения параметра в поле или свойстве объекта.</summary>
+            <typeparam name="TObject">Тип объекта.</typeparam>
+            <typeparam name="TProperty">Тип значения параметра.</typeparam>
+            <param name="instance">Экземпляр объекта.</param>
+            <param name="memberExpression">Выражение доступа к полю или свойству.</param>
+            <returns>Хранилище значения параметра.</returns>
+        </member>
+        <member name="M:Recar2.SettingUtility.CreateStorageByStruct``3(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``1,``2}})">
+            <summary></summary>
+            <typeparam name="TObject"></typeparam>
+            <typeparam name="TProperty1"></typeparam>
+            <typeparam name="TProperty2"></typeparam>
+            <param name="instance"></param>
+            <param name="memberExpression1"></param>
+            <param name="memberExpression2"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Recar2.RangeSetting`1">
+            <summary>Параметр ядра распознавания.</summary>
+            <typeparam name="T">Тип параметра.</typeparam>
+        </member>
+        <member name="P:Recar2.RangeSetting`1.Minimum">
+            <summary>Возвращает минимальное значение параметра.</summary>
+        </member>
+        <member name="P:Recar2.RangeSetting`1.Maximum">
+            <summary>Возвращает максимальное значение параметра.</summary>
+        </member>
+        <member name="P:Recar2.RangeSetting`1.Value">
+            <summary>Устанавливает и возвращает значение параметра.</summary>
+        </member>
+        <member name="P:Recar2.RangeSetting`1.Step">
+            <summary>Возвращает шаг изменения значения параметра.</summary>
+        </member>
+        <member name="T:Recar2.VideoChannelSettings">
+            <summary>Настройки видеоканала.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MotionDetectMethod">
+            <summary>Устанавливает и возвращает метод определения движения в кадре.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.CoefMinThreshold">
+            <summary>Устанавливает и возвращает коэффициент нижнего порога определения движения.</summary>
+            <value>Должно иметь значение в диапазоне от 0.0 до 1.0.</value>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.CoefMaxThreshold">
+            <summary>Устанавливает и возвращает коэффициент верхнего порога определения движения.</summary>
+            <value>Должно иметь значение в диапазоне от 0.0 до 1.0.</value>
+        </member>
+        <member name="F:Recar2.VideoChannelSettings.Roi">
+            <summary>Устанавливает и возвращает параметр, определяющий зону распознавания.</summary>
+            <value>Значения отступов от краев изображения, в которых номер не будет распознаваться, в долях изображения.</value>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.RealZoneSizeMode">
+            <summary>Устанавливает и возвращает способ задания размеров зоны на изображении.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MinPlateSize">
+            <summary>Устанавливает и возвращает настройку минимального размера изображения номера.</summary>
+            <value>В долях изображения.</value>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MaxPlateSize">
+            <summary>Устанавливает и возвращает настройку максимального размера изображения номера.</summary>
+            <value>В долях изображения.</value>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.IsProcessAllMatrixes">
+            <summary>Устанавливает и возвращает значение, которое как обрабатывать кадр при подборе размера номера.</summary>
+            <value>Если необходимо обрабатывать все размеры кадры, то <c>trus</c>.</value>
+            <remarks>
+            Если на изображении одновременно могут присутствовать несколько номеров разного размера,
+            то этот параметр необходимо установить в значение <c>true</c>.
+            Установка данного параметра в значение <c>true</c> снижает производительность распознавания.
+            </remarks>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.IsColorImageEnabled">
+            <summary>Устанавливает и возвращает флаг, должны ли изображения в решении быть цветными.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.FrameQueueSize">
+            <summary>Устанавливает и возвращает максимальный размер буфера кадров.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.BlockByPrevDecisionMode">
+            <summary>
+            Устанавливает и возвращает значение, которое показывает
+            от какого предыдущего решения (первого или последнего) блокировать похожие решения.
+            </summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.BlockDirectionUp">
+            <summary>
+            Устанавливает и возвращает флаг, показывающий,
+            необходимо ли учитывать распознанные номера при перемещении ТС по кадру "снизу-вверх".
+            </summary>
+            <value>Если <c>false</c>, то учитывать, иначе <c>true</c></value>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.BlockDirectionDown">
+            <summary>
+            Устанавливает и возвращает флаг, показывающий,
+            необходимо ли учитывать распознанные номера при перемещении ТС по кадру "сверху-вниз".
+            </summary>
+            <value>Если <c>false</c>, то учитывать, иначе <c>true</c></value>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.BlockDirectionUndefined">
+            <summary>
+            Устанавливает и возвращает флаг, показывающий,
+            необходимо ли учитывать распознанные номера, когда перемещение ТС по кадру не определено.
+            </summary>
+            <value>Если <c>false</c>, то учитывать, иначе <c>true</c>.</value>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.ProcessStrategy">
+            <summary>Стратегия алгоритма распознавания.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.ZoneSearchMethod">
+            <summary>Метод обработки нескольких зон локализации.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.LocalizationBrightStep">
+            <summary>Шаг перебора яркостей в алгоритме локализации.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.RecognitionBrightStep">
+            <summary>Шаг перебора яркостей в алгоритме распознавания.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MakeUnrecogDecisionByMotion">
+            <summary>
+            Устанавливает и возвращает флаг, показывающий,
+            необходимо ли формировать ли нераспознанный номер, если было зафиксировано движение, но номер не был распознан.
+            </summary>
+            <value>Если <c>true</c>, то формировать, иначе <c>false</c>.</value>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MaxAllowedUnrecognizedChars">
+            <summary>Устанавливает и возвращает максимально допустимое количество нераспознанных символов.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.DecisionKeepTimeout">
+            <summary>
+            Устанавливает и возвращает продолжительность временного промежутка,
+            в течение которое блокируются все похожие номера решения.
+            </summary>
+            <remarks>Используется для повторной блокировки номера.</remarks>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.DecisionTimeout">
+            <summary>Устанавливает и возвращает таймаут принятия решения в мс.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MinDecisionFrames">
+            <summary>Устанавливает и возвращает минимально необходимое количество кадров для принятия решения.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MinUnrecogDecisionFrames">
+            <summary>
+            Минимальное количество кадров подряд, на которых должно присутствовать движение,
+            что бы был сформирован нераспознанный номер в случае невозможности его распознавания.
+            Учитывается если <see cref="P:Recar2.VideoChannelSettings.MakeUnrecogDecisionByMotion" /> == <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.FrameNumberFromDetectMotion">
+            <summary>
+            Порядковый номер кадра от начала определения движения,
+            который предъявляется при невозможности распознать номер.
+            Учитывается если <see cref="P:Recar2.VideoChannelSettings.MakeUnrecogDecisionByMotion" /> == <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MaxProbDifference">
+            <summary>Максимальное отличие вероятностей для однотипных шаблонов.</summary>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MinDecisionThreshold">
+            <summary>Минимальный порог вероятности решения.</summary>
+            <remarks>Если решение имеет меньшую вероятность, то оно будет отброшено.</remarks>
+        </member>
+        <member name="P:Recar2.VideoChannelSettings.MotionTimeout">
+            <summary>Интервал времени после начала движения, по истечению которого принудительно принимается решение.</summary>
+        </member>
+        <member name="M:Recar2.VideoChannelSettings.Apply">
+            <summary>Применяет измененные настройки к Ядру распознавания.</summary>
+        </member>
+        <member name="M:Recar2.VideoChannelSettings.SetDefaults">
+            <summary>Устанавливает настройки в значения по умолчанию.</summary>
+        </member>
+        <member name="T:Recar2.ProtectionActivateController">
+            <summary>Контроллер активации пробной версии.</summary>
+        </member>
+        <member name="T:Recar2.TrialState">
+            <summary>Состояние пробной версии.</summary>
+        </member>
+        <member name="F:Recar2.TrialState.NonActivate">
+            <summary>Не активирована.</summary>
+        </member>
+        <member name="F:Recar2.TrialState.Activated">
+            <summary>Активирована.</summary>
+        </member>
+        <member name="F:Recar2.TrialState.Expired">
+            <summary>Вышел срок использования пробной версии.</summary>
+        </member>
+        <member name="T:Recar2.TrialDelegate">
+            <summary>Делегат для вызова при активации/использовании пробной версии.</summary>
+            <param name="state">Состояние пробной версии.</param>
+            <param name="left">Оставшийся период использования пробной версии.</param>
+            <returns>Возвращает флаг, показывающий необходимо ли активировать пробную версию.</returns>
+        </member>
+        <member name="T:Recar2.UI.LogForm">
+            <summary>Форма для отображения лога.</summary>
+        </member>
+        <member name="F:Recar2.UI.LogForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Recar2.UI.LogForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Recar2.UI.LogForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Recar2.UI.VideoChannelForm">
+            <summary>Форма настройка канала.</summary>
+        </member>
+        <member name="F:Recar2.UI.VideoChannelForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Recar2.UI.VideoChannelForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Recar2.UI.VideoChannelForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Recar2.Utility.StencilsImagesCreater">
+            <summary>Класс для создания изображений шаблонов номеров.</summary>
+        </member>
+        <member name="T:Recar2.VideoCoreExtensions">
+            <summary>Методы расширения для <see cref="T:Recar2.VideoCore"/>.</summary>
+        </member>
+        <member name="M:Recar2.VideoCoreExtensions.ShowSetupForm(Recar2.VideoCore,System.Windows.Forms.IWin32Window)">
+            <summary>Показать форму настроек ядра.</summary>
+            <param name="core">Ядро.</param>
+            <param name="owner">Владелец окна.</param>
+            <returns>Результат закрытия формы.</returns>
+        </member>
+        <member name="M:Recar2.VideoCoreExtensions.RegisterImage(Recar2.Core.IVideoChannel,Mallenom.Imaging.Image)">
+            <summary>Регистрирует указанный контрол вывода изображения для указанного видеоканала.</summary>
+            <param name="channel">Видеоканал.</param>
+            <param name="image">Контрол для вывода изображения.</param>
+            <returns>Контроллер для настройки вывода. После использования необходимо вызвать <see cref="M:Recar2.ImageVideoDisplayController.Dispose()"/>.</returns>
+        </member>
+        <member name="T:Recar2.VideoCoreInitializationParameters">
+            <summary>Параметры инициализации ядра распознавания видеопотока <see cref="T:Recar2.VideoCore"/>.</summary>
+        </member>
+        <member name="F:Recar2.VideoCoreInitializationParameters._videoProcessChannelCount">
+            <summary>Количество каналов обработки видео.</summary>
+        </member>
+        <member name="F:Recar2.VideoCoreInitializationParameters._videoOnlyViewChannelCount">
+            <summary>Количество каналов просмотра видео.</summary>
+        </member>
+        <member name="P:Recar2.VideoCoreInitializationParameters.VideoProcessChannelCount">
+            <summary>Возвращает и устанавливает количество каналов обработки видео.</summary>
+            <value>Количество каналов обработки видео.</value>
+        </member>
+        <member name="P:Recar2.VideoCoreInitializationParameters.VideoOnlyViewChannelCount">
+            <summary>Возвращает и устанавливает количество каналов просмотра видео.</summary>
+            <value>Количество каналов просмотра видео.</value>
+        </member>
+        <member name="P:Recar2.VideoCoreInitializationParameters.LookupVideoSources">
+            <summary>
+            Устанавливает и возвращает флаг,
+            указывающий необходимо ли производить поиск видеоисточников
+            в сборка, лежащих в каталоге с бинарными файлами ядра.
+            </summary>
+        </member>
+        <member name="M:Recar2.VideoCoreInitializationParameters.#ctor">
+            <summary>Создает объект с параметрами инициализации.</summary>
+        </member>
+        <member name="T:Recar2.ImageCoreInitializationParameters">
+            <summary>Параметры инициализации ядра распознавания изображений <see cref="T:Recar2.ImageCore"/>.</summary>
+        </member>
+        <member name="F:Recar2.ImageCoreInitializationParameters._imageProcessChannelCount">
+            <value>Количество каналов обработки изображений.</value>
+        </member>
+        <member name="P:Recar2.ImageCoreInitializationParameters.ImageProcessChannelCount">
+            <summary>Возвращает и устанавливает количество каналов обработки изображений.</summary>
+            <value>Количество каналов обработки изображений.</value>
+        </member>
+        <member name="M:Recar2.ImageCoreInitializationParameters.#ctor">
+            <summary>Конструктор.</summary>
+        </member>
+        <member name="T:Recar2.NumberRecognizedEventArgs">
+            <summary>Аргумент события.</summary>
+        </member>
+        <member name="P:Recar2.NumberRecognizedEventArgs.Channel">
+            <summary>Возвращает объект канала.</summary>
+        </member>
+        <member name="P:Recar2.NumberRecognizedEventArgs.Number">
+            <summary>Возвращает распознанный номер.</summary>
+        </member>
+        <member name="P:Recar2.NumberRecognizedEventArgs.Matrix">
+            <summary>Возвращает изображение 'лучшего' кадра с распознанным номером.</summary>
+        </member>
+        <member name="M:Recar2.NumberRecognizedEventArgs.#ctor(System.Int64,Recar2.Core.IVideoChannel,Recar2.ExtPlateNumber)">
+            <summary>Создает аргумент события.</summary>
+            <param name="eventId"></param>
+            <param name="channel">Канал.</param>
+            <param name="number">Распознанный номер.</param>
+        </member>
+        <member name="T:Recar2.PlateNumber">
+            <summary>Распознанный номер.</summary>
+        </member>
+        <member name="P:Recar2.PlateNumber.Text">
+            <summary>Возвращает текстовое представление номера.</summary>
+        </member>
+        <member name="P:Recar2.PlateNumber.NumberType">
+            <summary>Возвращает тип (шаблон) номера.</summary>
+        </member>
+        <member name="P:Recar2.PlateNumber.Zone">
+            <summary>Возвращает координаты номера на изображении 'лучшего' кадра.</summary>
+        </member>
+        <member name="P:Recar2.PlateNumber.BestFrameTimeStamp">
+            <summary>Возвращает временную метку 'лучшего' кадра.</summary>
+        </member>
+        <member name="P:Recar2.PlateNumber.Reliability">
+            <summary>Возвращает достоверность распознавания номера.</summary>
+            <value>Значение в диапазоне 0..1.</value>
+        </member>
+        <member name="T:Recar2.Settings">
+            <summary>Настройки ядра распознавания.</summary>
+        </member>
+        <member name="P:Recar2.Settings.Models">
+            <summary>Возвращает настройки классификационных моделей номеров.</summary>
+        </member>
+        <member name="P:Recar2.Settings.Item(System.String,System.String)">
+            <summary>Устанавливает и возвращает значение параметра настройки с указанным именем.</summary>
+            <param name="nspace">Имя объекта.</param>
+            <param name="name">Имя параметра.</param>
+            <returns>Значение параметра.</returns>
+        </member>
+        <member name="M:Recar2.Settings.Channel(System.Int32)">
+            <summary>Возвращает настройки указанного канала.</summary>
+            <param name="channelNum">Номер канала, начиная с 0.</param>
+            <returns>Объект настроек.</returns>
+        </member>
+        <member name="M:Recar2.Settings.Apply">
+            <summary>Применяет измененные параметры.</summary>
+        </member>
+        <member name="M:Recar2.Settings.SetDefaults">
+            <summary>Устанавливает значения параметров в значения по умолчанию.</summary>
+            <remarks>После установки настроек их необходимо применить, вызвав <see cref="M:Recar2.Settings.Apply"/>.</remarks>
+        </member>
+        <member name="T:Recar2.ImageCore">
+            <summary>Ядро распознавания номера на изображениях.</summary>
+        </member>
+        <member name="M:Recar2.ImageCore.#ctor(Recar2.ImageCoreInitializationParameters)">
+            <summary>Создает объект ядра распознавания.</summary>
+            <param name="parameters">параметры инициализации ядра.</param>
+        </member>
+        <member name="M:Recar2.ImageCore.ProcessImage(Mallenom.Imaging.IImageMatrix,System.Int32,System.Threading.CancellationToken)">
+            <summary>Обрабатывает указанное изображение на указанном канале.</summary>
+            <param name="matrix">Распознаваемое изображение.</param>
+            <param name="channelNum">Номер канала (начиная с 0).</param>
+            <param name="cancellationToken">Токен отмены операции.</param>
+            <returns>Список распознанных номеров.</returns>
+            <exception cref="T:System.ArgumentException">Канал <paramref name="channelNum"/> занят обработкой изображения.</exception>
+            <exception cref="T:System.InvalidOperationException">Превышен лимит количества распознаваемых изображений.</exception>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> был отменен.</exception>
+        </member>
+        <member name="M:Recar2.ImageCore.ProcessImageAsync(Mallenom.Imaging.IImageMatrix,System.Int32,System.Threading.CancellationToken)">
+            <summary>Асинхронная версия <see cref="M:Recar2.ImageCore.ProcessImage(Mallenom.Imaging.IImageMatrix,System.Int32,System.Threading.CancellationToken)"/>.</summary>
+        </member>
+        <member name="M:Recar2.ImageCore.ProcessImageByVariants(Mallenom.Imaging.IImageMatrix,System.Int32,System.Threading.CancellationToken)">
+            <summary>Возвращает варианты распознавания на указанном изображении.</summary>
+            <param name="matrix">Распознаваемое изображение.</param>
+            <param name="channelNum">Номер канала (начиная с 0).</param>
+            <param name="cancellationToken">Токен отмены операции.</param>
+            <returns>Список вариантов распознавания.</returns>
+            <exception cref="T:System.ArgumentException">Канал <paramref name="channelNum"/> занят обработкой изображения.</exception>
+            <exception cref="T:System.InvalidOperationException">Превышен лимит количества распознаваемых изображений.</exception>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> был отменен.</exception>
+        </member>
+        <member name="M:Recar2.ImageCore.ProcessImage(System.Drawing.Bitmap,System.Int32,System.Threading.CancellationToken)">
+            <summary>Обрабатывает указанное изображение на указанном канале.</summary>
+            <param name="image">Изображение.</param>
+            <param name="channelNum">Номер канала (начиная с 0).</param>
+            <param name="cancellationToken">Токен отмены операции.</param>
+            <returns>Список распознанных номеров.</returns>
+            <exception cref="T:System.ArgumentException">Канал не предназначен для обработки изображений.</exception>
+            <exception cref="T:System.ArgumentException">Канал занят обработкой изображения.</exception>
+            <exception cref="T:System.ApplicationException">Вышел период использования программы.</exception>
+        </member>
+        <member name="M:Recar2.ImageCore.ProcessImageAsync(System.Drawing.Bitmap,System.Int32,System.Threading.CancellationToken)">
+            <summary>Асинхронная версия <see cref="M:Recar2.ImageCore.ProcessImage(System.Drawing.Bitmap,System.Int32,System.Threading.CancellationToken)"/>.</summary>
+        </member>
+        <member name="M:Recar2.ImageCore.ProcessImage(System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>Обрабатывает изображение из указанного файла на указанном канале.</summary>
+            <param name="filename">Путь к файлу с изображением.</param>
+            <param name="channelNum">Номер канала (начиная с 0).</param>
+            <param name="cancellationToken">Токен отмены операции.</param>
+            <returns>Список распознанных номеров.</returns>
+            <exception cref="T:System.ArgumentException">Канал не предназначен для обработки изображений.</exception>
+            <exception cref="T:System.ArgumentException">Канал занят обработкой изображения.</exception>
+            <exception cref="T:System.ApplicationException">Вышел период использования программы.</exception>
+        </member>
+        <member name="M:Recar2.ImageCore.ProcessImageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>Асинхронная версия <see cref="M:Recar2.ImageCore.ProcessImage(System.String,System.Int32,System.Threading.CancellationToken)"/>.</summary>
+        </member>
+        <member name="T:Recar2.VideoCore">
+            <summary>Ядро распознавания в видеопотоке.</summary>
+        </member>
+        <member name="E:Recar2.VideoCore.MotionDetected">
+            <summary>Генерируется при обнаружении/пропадания движения в кадре.</summary>
+        </member>
+        <member name="E:Recar2.VideoCore.NumberRecognized">
+            <summary>Генерируется при распознавании номера.</summary>
+        </member>
+        <member name="P:Recar2.VideoCore.VideoManager">
+            <summary>Возвращает класс управления видео.</summary>
+        </member>
+        <member name="M:Recar2.VideoCore.#ctor(Recar2.VideoCoreInitializationParameters)">
+            <summary>Создает объект ядра распознавания.</summary>
+            <param name="parameters">Параметры инициализации ядра.</param>
+            <exception cref="T:Recar2.Protection.ProtectionException">
+            Ошибка запуска ядра, связанная с нарушением защиты.
+            Подробности см. <see cref="P:Recar2.Protection.ProtectionException.ErrorCode"/>.
+            </exception>
+        </member>
+        <member name="M:Recar2.VideoCore.Initialize">
+            <summary>Инициализирует ядро распознавания.</summary>
+        </member>
+        <member name="M:Recar2.VideoCore.Start">
+            <summary>Запускает обработку видео.</summary>
+        </member>
+        <member name="M:Recar2.VideoCore.Stop">
+            <summary>Останавливает обработку видео.</summary>
+        </member>
+        <member name="M:Recar2.VideoCore.ProcessFrame(System.Int32,System.String,System.String,System.Int32)">
+            <summary></summary>
+            <param name="channelNum"></param>
+            <param name="filename"></param>
+            <param name="imgType"></param>
+            <param name="quality"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Recar2.VideoCore.GetSetupControls(System.Windows.Forms.HelpProvider)">
+            <summary>Возвращает список контролов настройки ядра.</summary>
+            <param name="helpProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Recar2.VideoCore.CreateMultiVideoForm(System.Int32)">
+            <summary>Возвращает форму с видео.</summary>
+            <param name="channelNum">Номер канала (начиная с 0).</param>
+            <returns>Форма.</returns>
+        </member>
+        <member name="M:Recar2.VideoCore.ShowAlgsSetupForm(System.Windows.Forms.IWin32Window,Recar2.Core.IVideoChannel)">
+            <summary>Показывает форму настройки алгоритмов.</summary>
+            <param name="owner"></param>
+            <param name="channel">Канал.</param>
+        </member>
+        <member name="M:Recar2.VideoCore.SetupTransformation(Recar2.Core.IVideoChannel,System.Windows.Forms.IWin32Window)">
+            <summary>Показывает форму настройки предварительной обработки.</summary>
+            <param name="channel"></param>
+            <param name="owner"></param>
+        </member>
+    </members>
+</doc>

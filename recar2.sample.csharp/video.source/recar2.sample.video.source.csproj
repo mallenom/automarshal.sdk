@@ -54,22 +54,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mallenom.framework">
-      <HintPath>..\refs\mallenom.framework.dll</HintPath>
+      <HintPath>..\..\binaries.x64\mallenom.framework.dll</HintPath>
     </Reference>
     <Reference Include="mallenom.imaging">
-      <HintPath>..\refs\mallenom.imaging.dll</HintPath>
+      <HintPath>..\..\binaries.x64\mallenom.imaging.dll</HintPath>
     </Reference>
     <Reference Include="mallenom.video">
-      <HintPath>..\refs\mallenom.video.dll</HintPath>
+      <HintPath>..\..\binaries.x64\mallenom.video.dll</HintPath>
     </Reference>
     <Reference Include="recar2">
-      <HintPath>..\refs\recar2.dll</HintPath>
+      <HintPath>..\..\binaries.x64\recar2.dll</HintPath>
     </Reference>
     <Reference Include="recar2.kernel">
-      <HintPath>..\refs\recar2.kernel.dll</HintPath>
+      <HintPath>..\..\binaries.x64\recar2.kernel.dll</HintPath>
     </Reference>
     <Reference Include="recar2.kernel.ui">
-      <HintPath>..\refs\recar2.kernel.ui.dll</HintPath>
+      <HintPath>..\..\binaries.x64\recar2.kernel.ui.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -111,7 +111,6 @@
     <EmbeddedResource Include="SplashForm.resx">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="postbuild.cmd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -127,7 +126,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>..\..\..\postbuild.cmd "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>@xcopy /Y/Q/S ..\..\..\..\..\binaries.$(PlatformName)\*.dll</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

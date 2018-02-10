@@ -1,0 +1,508 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>recar2.com</name>
+    </assembly>
+    <members>
+        <member name="T:Recar2.AddIn.IInitDone">
+            <summary>Интерфейс для работы с 1С.</summary>
+        </member>
+        <member name="T:Recar2.AddIn.IAsyncEvent">
+            <summary>Интерфейс для работы с 1С.</summary>
+        </member>
+        <member name="T:Recar2.AddIn.IStatusLine">
+            <summary>Интерфейс для работы с 1С.</summary>
+        </member>
+        <member name="T:Recar2.AddIn.RecarKernel1CInterop">
+            <summary>Обертка ядра распознавания для работы с 1С. При этом событие необходимо обрабатывать в процедуре "ОбработкаВнешнегоСобытия".</summary>
+        </member>
+        <member name="T:Recar2.AssemblyTimeStampAttribute">
+            <summary>Атрибут для пометки сборки временем компиляции и коммита.</summary>
+        </member>
+        <member name="T:Recar2.Com.DispatchVideoSource">
+            <summary>Видеоисточник в который можно 'подсовывать' кадры.</summary>
+        </member>
+        <member name="T:Recar2.Com.NumberRecognizedHandler">
+            <summary>Делегат для COM-события - распознан номер.</summary>
+            <param name="solution">Принятое решение в виде <see cref="T:Recar2.Com.IRecarSolution" />.</param>
+        </member>
+        <member name="M:Recar2.Com.IImageCore.RecogOneImageFromCh(System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            Обработка одного изображения с указанного канала в его же алгоритмах.
+            </summary>
+            <param name="channelNum">Номер видеоканал (начиная с 0)</param>
+            <param name="fNameToStore">Пусть для сохранения изображения (должен включать в себя имя файла)</param>
+            <param name="imgType">Формат сохраняемого изображения: bmp, jpg, png</param>
+            <param name="quality">Качество сжатия изображения от 0 до 100, только для jpg</param>
+            <returns>Распознанные номера или прочерк.</returns>
+        </member>
+        <member name="T:Recar2.Com.IVideoCore">
+            <summary>Интерфейс ядра распознавания в видеопотоке.</summary>
+            <remarks>
+            Ядро распознавания содержит объекты <see cref="T:Recar2.Com.IVideoChannel"/> и управляет ими.
+            Для инициализации служит методом <see cref="M:Recar2.Com.IVideoCore.Initialize"/>.
+            После завершения работы необходимо вызвать метод <see cref="M:Recar2.Com.IVideoCore.Dispose"/>.
+            При обнаружении ТС и определении его ГРЗ срабатывает событие <see cref="E:Recar2.Com.VideoCoreCom.NumberRecognized"/>, в которое передается объект типа <see cref="T:Recar2.Com.IRecarSolution"/>.
+            Параметры ядра распознавания сохраняются в конфигурационные файлы в каталоге с исполняемым файлом приложения, в котором используется ядро распознавания.
+            </remarks>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.UseIntegratedLogSubsystem">
+            <summary>Возвращает и устанавливает флаг использования собственной подсистемы логгирования ядра.</summary>
+            <value><c>true</c> - ядро использует свою подсистему логгирования, иначе - <c>false</c>.</value>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.LogDirectory">
+            <summary>Возвращает и устанавливает директорию для хранения логов.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.ConfigFilename">
+            <summary>Возвращает и устанавливает имя файла конфигурации.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.VideoProcessChannelCount">
+            <summary>Возвращает и устанавливает количество каналов распознавания.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.VideoOnlyViewChannelCount">
+            <summary>Возвращает и устанавливает количество каналов видеонаблюдения.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.ConvertPlateToCapsLatin">
+            <summary>
+            Устанавливает и возвращает значение,
+            показывающее преобразовывать ли номер в латинские символы верхнего регистра.
+            </summary>
+            <value>Если необходимо преобразовывать, то <c>true</c>, иначе <c>false</c>.</value>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.ImageStoragePath">
+            <summary>Путь для автоматического сохранения изображений с номерами.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.ImageStorageEnabled">
+            <summary>Включить или отключить автоматическое сохранение изображений при распознавании.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoCore.IsInitialized">
+            <summary>Возвращает <c>true</c>, если ядро инициализировано.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.Initialize">
+            <summary>Инициализирует ядро.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.Dispose">
+            <summary>Освобождает ресурсы ядра.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.RegisterNumberRecognizedCallback(System.Int64,System.Int64)">
+            <summary>Регистрирует callback-функцию, которая вызывается при распознавании номера.</summary>
+            <param name="callback">Указатель на callback-функцию.</param>
+            <param name="state">Состояние, которое будет передано в callback-функцию.</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.GetVideoChannel(System.Int32)">
+            <summary>Возвращает канал с указанным номером.</summary>
+            <param name="channel">Id канала.</param>
+            <returns>Интерфейс управления каналом.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.VideoChannelExists(System.Int32)">
+            <summary>Проверяет, существует ли канал с номером channel.</summary>
+            <param name="channel">Проверяемый номер канала (начиная с 0).</param>
+            <returns>true = канал существует.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.SetVideoSource(System.Int32)">
+            <summary>Устанавливает для канала <paramref name="channel"/> видеоисточник для импорта видео из COM.</summary>
+            <param name="channel">Номер канала (начиная с 0).</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.Start">
+            <summary>Запускает процесс обработки видео.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.Stop">
+            <summary>Останавливает процесс обработки видео.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.SetMotionState(System.Int32,System.Boolean)">
+            <summary>Устанавливает состояние движения на канале вручную.</summary>
+            <param name="channel">Номер канала.</param>
+            <param name="val">Наличие движения.</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.DispatchVideoFrame(System.Int32,System.Int32,System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>Отправляет в канал кадр видео.</summary>
+            <param name="channel">Канал.</param>
+            <param name="format">Формат данных (0 = Y8, 1 = RGB24).</param>
+            <param name="data">Указатель на данные.</param>
+            <param name="stride">Смещение в байтах до следующей строки пикселей.</param>
+            <param name="width">Ширина изображения.</param>
+            <param name="height">Высота изображения.</param>
+            <remarks>Предварительно должен быть установлен особый источник видео вызовом <see cref="M:Recar2.Com.IVideoCore.SetVideoSource(System.Int32)"/>.</remarks>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.MakeImageSnapshot(System.Int32,System.String)">
+            <summary>Сохраняет снимок с видеоканала в указанный файл.</summary>
+            <param name="channel">Канал.</param>
+            <param name="filename">Файл для сохранения изображения.</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.SetVideoFormsLocked(System.Boolean)">
+            <summary>Запрещает/разрешает перемещение и изменение размеров окон.</summary>
+            <param name="value">true = разрешить.</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.SetVideoFormsVisible(System.Boolean)">
+            <summary>Скрывает/показывает окна отображения видео.</summary>
+            <param name="isVisibled">true = показать.</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.SetVideoFormsTopMost(System.Boolean)">
+            <summary>Отображает окна с видео поверх всех окон.</summary>
+            <param name="value">true = поверх всех.</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.ShowSetupForm">
+            <summary>Показывает окно настроек ядра распознавания.</summary>
+            <returns>Возвращаемое значение из формы.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.ShowAlgSetupForm(System.Int32)">
+            <summary>Показывает окно настроек алгоритмов на канале с указанным номером.</summary>
+            <param name="channel">Номер канала.</param>
+            <returns>Возвращаемое значение из формы.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.ShowLogForm">
+            <summary>Показывает форму лога.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.HideLogForm">
+            <summary>Скрывает форму лога.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.SaveSettings">
+            <summary>Сохраняет настройки в файл конфигурации.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.LoadSettings">
+            <summary>Загружает настройки из файла конфигурации.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.GetSettingSections">
+            <summary>Возвращает список секций всех параметров ядра.</summary>
+            <returns>Массив строк, идентифицирующих настраиваемые объекты ядра. Вложенность объектов обозначается символом '.'.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.GetSettingNames(System.String)">
+            <summary>Возвращает список имен параметров ядра для указанной секции.</summary>
+            <param name="section">Имя объекта.</param>
+            <returns>Массив строк, идентифицирующих параметры настраиваемого объекта.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.GetSettingDisplayNames(System.String)">
+            <summary>Возвращает список имен параметров настраиваемого объекта для отображения в интерфейсе.</summary>
+            <param name="section">Имя объекта.</param>
+            <returns>Массив строк, содержащий имена параметров, пригодные для отображения в интерфейсе.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.GetSettingDescription(System.String,System.String)">
+            <summary>Возвращает описание параметра.</summary>
+            <param name="section">Имя объекта.</param>
+            <param name="name">Имя параметра.</param>
+            <returns>Описание параметра.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.GetSettingValue(System.String,System.String)">
+            <summary>Возвращает значение параметра.</summary>
+            <param name="section">Имя объекта.</param>
+            <param name="name">Имя параметра.</param>
+            <returns>Значение параметра.</returns>
+        </member>
+        <member name="M:Recar2.Com.IVideoCore.SetSettingValue(System.String,System.String,System.Object)">
+            <summary>Устанавливает значение параметра.</summary>
+            <param name="section">Имя объекта.</param>
+            <param name="name">Имя параметра.</param>
+            <param name="value">Значение параметра.</param>
+        </member>
+        <member name="T:Recar2.Com.IPlatesList">
+            <summary> Описание списка распознанных номеров. </summary>
+        </member>
+        <member name="P:Recar2.Com.IPlatesList.Length">
+            <summary>Возвращает количество номеров в списке.</summary>
+        </member>
+        <member name="M:Recar2.Com.IPlatesList.GetPlate(System.Int32)">
+            <summary>Возвращает i-ый элемент списка.</summary>
+            <param name="i">Индекс элемента, начиная с 0.</param>
+            <returns>Объект с номером.</returns>
+        </member>
+        <member name="T:Recar2.Com.IRecarSolution">
+            <summary>Описание решения об обнаруженном ТС.</summary>
+            <remarks>
+            Решение передается при срабатывании события <see cref="E:Recar2.Com.VideoCoreCom.NumberRecognized"/> у объекта <see cref="T:Recar2.Com.IVideoCore"/>.
+            Оно содержит всю информацию об обнаруженном ТС (ГРЗ, направление) и позволяет получить доступ к изображению ТС(через файл).
+            </remarks>
+        </member>
+        <member name="P:Recar2.Com.IRecarSolution.EventId">
+            <summary>Возвращает уникальный идентификатор события распознавания в контексте запуска ядра.</summary>
+            <remarks>Идентификатор увеличивается на 1 для каждого последующего события.</remarks>
+        </member>
+        <member name="P:Recar2.Com.IRecarSolution.CameraId">
+            <summary>Номер канала, на котором принято решение.</summary>
+        </member>
+        <member name="P:Recar2.Com.IRecarSolution.Number">
+            <summary>Принятое решение (ГРЗ ТС).</summary>
+        </member>
+        <member name="P:Recar2.Com.IRecarSolution.NumberType">
+            <summary>Тип номера.</summary>
+        </member>
+        <member name="P:Recar2.Com.IRecarSolution.TimeStamp">
+            <summary>Возвращает временную метку лучшего кадра с номером.</summary>
+        </member>
+        <member name="P:Recar2.Com.IRecarSolution.MovementDirection">
+            <summary>Направление движения. 0 - вниз, 1 - вверх.</summary>
+        </member>
+        <member name="P:Recar2.Com.IRecarSolution.ImageFileName">
+            <summary>Имя файла с изображением автомобиля (если включено автоматическое сохранение).</summary>
+        </member>
+        <member name="M:Recar2.Com.IRecarSolution.SaveImageToFile(System.String)">
+            <summary>Сохранить изображение в указанный файл.</summary>
+            <param name="filename">
+            Имя файла для сохранения изображения. Может иметь расширение <c>bmp</c> или <c>jpeg</c>.
+            </param>
+        </member>
+        <member name="T:Recar2.Com.RecarSolution">
+            <summary>Описание решения об обнаруженном ТС.</summary>
+            <remarks>
+            Решение передается при срабатывании события <see cref="E:Recar2.Com.VideoCoreCom.NumberRecognized"/> у объекта <see cref="T:Recar2.Com.IVideoCore"/>.
+            Оно содержит всю информацию об обнаруженном ТС (ГРЗ, направление) и позволяет получить доступ к изображению ТС(через файл).
+            </remarks>
+        </member>
+        <member name="M:Recar2.Com.RecarSolution.#ctor(Recar2.NumberRecognizedEventArgs,System.String)">
+            <summary>Конструктор решения.</summary>
+        </member>
+        <member name="P:Recar2.Com.RecarSolution.EventId">
+            <inheritdoc />
+        </member>
+        <member name="P:Recar2.Com.RecarSolution.CameraId">
+            <inheritdoc />
+        </member>
+        <member name="P:Recar2.Com.RecarSolution.Number">
+            <inheritdoc />
+        </member>
+        <member name="P:Recar2.Com.RecarSolution.NumberType">
+            <inheritdoc />
+        </member>
+        <member name="P:Recar2.Com.RecarSolution.TimeStamp">
+            <inheritdoc />
+        </member>
+        <member name="P:Recar2.Com.RecarSolution.ImageFileName">
+            <inheritdoc />
+        </member>
+        <member name="P:Recar2.Com.RecarSolution.MovementDirection">
+            <inheritdoc />
+        </member>
+        <member name="M:Recar2.Com.RecarSolution.SaveImageToFile(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Recar2.Com.IVideoChannel">
+            <summary> Описание видеоканала. </summary>
+            <remarks>Видеоканал связан с одним видеоисточником и алгоритмами обнаружения ТС и определения его номера.</remarks>
+        </member>
+        <member name="P:Recar2.Com.IVideoChannel.Name">
+            <summary>Возвращает имя канала.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoChannel.Id">
+            <summary>Возвращает идентификатор канала.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoChannel.IsWorking">
+            <summary>Возвращает текущее состояние канала.</summary>
+        </member>
+        <member name="P:Recar2.Com.IVideoChannel.IsProcess">
+            <summary>Отключить обработку на канале (только захват и отображение видео).</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoChannel.SaveCurrentImage(System.String)">
+            <summary>Сохраняет текущее кадр в файле.</summary>
+            <param name="filename">Имя файла для хранения кадра.</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoChannel.SetMotionState(System.Boolean)">
+            <summary>Устанавливает состояние движения на канале вручную.</summary>
+            <param name="state">Состояние движения: <c>true</c> - движение есть, <c>false</c> - движение отсутствует.</param>
+        </member>
+        <member name="M:Recar2.Com.IVideoChannel.SetVideoSource">
+            <summary>Устанавливает на канале видеоисточник для импорта видео из COM.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoChannel.DispatchVideoFrame(System.Int32,System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>Отправляет на канал кадр видео.</summary>
+            <param name="format">Формат данных (0 = Y8, 1 = RGB24).</param>
+            <param name="data">Указатель на данные.</param>
+            <param name="stride">Смещение в байтах до следующей строки пикселей.</param>
+            <param name="width">Ширина изображения.</param>
+            <param name="height">Высота изображения.</param>
+            <remarks>Предварительно должен быть установлен особый источник видео вызовом <see cref="M:Recar2.Com.IVideoChannel.SetVideoSource"/>.</remarks>
+        </member>
+        <member name="M:Recar2.Com.IVideoChannel.SetupAlgs">
+            <summary>Показывает окно настройки алгоритмов.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoChannel.SetupVideoSource">
+            <summary>Показывает окно настройки видеоисточника.</summary>
+        </member>
+        <member name="M:Recar2.Com.IVideoChannel.SetupTransformation">
+            <summary>Показывает окно настройки предобработки видео.</summary>
+        </member>
+        <member name="T:Recar2.Com.VideoChannel">
+            <summary>Реализация интерфейса <see cref="T:Recar2.Com.IVideoChannel"/>.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoChannel.#ctor(Recar2.VideoCore,Recar2.Core.VideoChannel)">
+            <summary>Создает объект видеоканала.</summary>
+            <param name="core"></param>
+            <param name="channel"></param>
+        </member>
+        <member name="T:Recar2.Com.VideoCoreCom">
+            <summary>Класс ядра распознавания для интеграции по технологии COM.</summary>
+            <remarks>
+            Реализует интерфейс <see cref="T:Recar2.Com.IVideoCore"/>.
+            Здесь описано только событие <see cref="E:Recar2.Com.VideoCoreCom.NumberRecognized"/>,
+            остальные члены класса смотрите в описании интерфейса <see cref="T:Recar2.Com.IVideoCore"/>.
+            </remarks>
+        </member>
+        <member name="E:Recar2.Com.VideoCoreCom.NumberRecognized">
+            <summary>Генерируется при распознавании номера.</summary>
+        </member>
+        <member name="T:Recar2.Com.VideoCoreCom.RecognizedCallback">
+            <summary>Делегат для callback-функции.</summary>
+            <param name="number">Принятор решение.</param>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.UseIntegratedLogSubsystem">
+            <summary>Возвращает и устанавливает флаг использования собственной подсистемы логгирования ядра.</summary>
+            <value><c>true</c> - ядро использует свою подсистему логгирования, иначе - <c>false</c>.</value>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.LogDirectory">
+            <summary>Возвращает и устанавливает директорию для хранения логов.</summary>
+            <remarks>
+            Если значение равно <c>null</c> или <see cref="F:System.String.Empty"/>,
+            то логи буду храниться в директории %ProgramData%\Mallenom Systems\Recar2Core\logs.
+            </remarks>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.ConfigFilename">
+            <summary>Возвращает и устанавливает имя файла конфигурации.</summary>
+            <remarks>
+            Если значение равно <c>null</c> или <see cref="F:System.String.Empty"/>,
+            то настройки буду храниться в файле %ProgramData%\Mallenom Systems\Recar2Core\configs\recar2.cfg.
+            </remarks>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.VideoProcessChannelCount">
+            <summary>Возвращает и устанавливает количество каналов распознавания.</summary>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.VideoOnlyViewChannelCount">
+            <summary>Возвращает и устанавливает количество каналов видеонаблюдения.</summary>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.ConvertPlateToCapsLatin">
+            <summary>
+            Устанавливает и возвращает значение,
+            показывающее преобразовывать ли номер в латинские символы верхнего регистра.
+            </summary>
+            <value>Если необходимо преобразовывать, то <c>true</c>, иначе <c>false</c>.</value>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.ImageStorageEnabled">
+            <summary>Устанавливает и возвращает значение, указывающее сохранять ли изображений с распознанными номерами.</summary>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.ImageStoragePath">
+            <summary>Устанавливает и возвращает путь для сохранения изображений с распознанными номерами.</summary>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.IsInitialized">
+            <summary>Возвращает <c>true</c>, если ядро инициализировано.</summary>
+        </member>
+        <member name="P:Recar2.Com.VideoCoreCom.Settings">
+            <summary></summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.#ctor">
+            <summary>Создает объект ядра.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.Dispose">
+            <summary>Освобождает ресурсы и разрушает объект ядра.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.RegisterNumberRecognizedCallback(System.Int64,System.Int64)">
+            <summary>Регистрирует callback-функцию, которая вызывается при распознавании номера.</summary>
+            <param name="callback">Указатель на callback-функцию.</param>
+            <param name="state">Объект-состояние, который возвращается вместе с решение распознавании номера.</param>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.Initialize">
+            <summary>Инициализирует ядро.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.Start">
+            <summary>Запускает процесс обработки видео.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.Stop">
+            <summary>Останавливает процесс обработки видео.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.GetVideoChannel(System.Int32)">
+            <summary>Возвращает канал с указанным номером.</summary>
+            <param name="channel">Id канала.</param>
+            <returns>Интерфейс управления каналом.</returns>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.VideoChannelExists(System.Int32)">
+            <summary>Проверяет, существует ли канал с номером channel.</summary>
+            <param name="channel">Проверяемый номер канала (начиная с 0).</param>
+            <returns>true = канал существует.</returns>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.SetVideoSource(System.Int32)">
+            <summary>Устанавливает для канала <paramref name="channel"/> видеоисточник для импорта видео из COM.</summary>
+            <param name="channel">Номер канала (начиная с 0).</param>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.SetMotionState(System.Int32,System.Boolean)">
+            <summary>Устанавливает состояние движения на канале вручную.</summary>
+            <param name="channel">Номер канала.</param>
+            <param name="val">Наличие движения.</param>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.MakeImageSnapshot(System.Int32,System.String)">
+            <summary>Сохраняет снимок с видеоканала в указанный файл.</summary>
+            <param name="channel">Канал.</param>
+            <param name="filename">Файл для сохранения изображения.</param>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.DispatchVideoFrame(System.Int32,System.Int32,System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>Отправляет в канал кадр видео.</summary>
+            <param name="channel">Канал.</param>
+            <param name="format">Формат данных (0 = Y8, 1 = RGB24).</param>
+            <param name="data">Указатель на данные.</param>
+            <param name="stride">Смещение в байтах до следующей строки пикселей.</param>
+            <param name="width">Ширина изображения.</param>
+            <param name="height">Высота изображения.</param>
+            <remarks>Предварительно должен быть установлен особый источник видео вызовом <see cref="M:Recar2.Com.VideoCoreCom.SetVideoSource(System.Int32)"/>.</remarks>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.ShowSetupForm">
+            <summary>Показывает окно настроек ядра распознавания.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.ShowAlgSetupForm(System.Int32)">
+            <summary>Показывает окно настроек алгоритмов на канале с указанным номером.</summary>
+            <param name="channel">Номер канала.</param>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.ShowLogForm">
+            <summary>Показывает форму лога.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.HideLogForm">
+            <summary>Скрывает форму лога.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.SetVideoFormsVisible(System.Boolean)">
+            <summary>Скрывает/показывает формы отображения видео.</summary>
+            <param name="isVisibled">Если <c>true</c>, то показать формы с видео.</param>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.SetVideoFormsLocked(System.Boolean)">
+            <summary>Запрещает/разрешает перемещение и изменение размеров окон.</summary>
+            <param name="value">true = разрешить.</param>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.SetVideoFormsTopMost(System.Boolean)">
+            <summary>Отображает окна с видео поверх всех окон.</summary>
+            <param name="value">true = поверх всех.</param>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.SaveSettings">
+            <summary>Сохраняет настройки в файл конфигурации.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.LoadSettings">
+            <summary>Загружает настройки из файла конфигурации.</summary>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.GetSettingSections">
+            <summary>Возвращает список всех настраиваемых объектов ядра.</summary>
+            <returns>Массив строк, идентифицирующих настраиваемые объекты ядра. Вложенность объектов обозначается символом '.'.</returns>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.GetSettingNames(System.String)">
+            <summary>Возвращает список имен параметров настраиваемого объекта.</summary>
+            <param name="section">Имя объекта.</param>
+            <returns>Массив строк, идентифицирующих параметры настраиваемого объекта.</returns>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.GetSettingDisplayNames(System.String)">
+            <summary>Возвращает список имен параметров настраиваемого объекта для отображения в интерфейсе.</summary>
+            <param name="section">Имя объекта.</param>
+            <returns>Массив строк, содержащий имена параметров, пригодные для отображения в интерфейсе.</returns>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.GetSettingDescription(System.String,System.String)">
+            <summary>Возвращает описание параметра.</summary>
+            <param name="section">Имя объекта.</param>
+            <param name="name">Имя параметра.</param>
+            <returns>Описание параметра.</returns>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.GetSettingValue(System.String,System.String)">
+            <summary>Возвращает значение параметра.</summary>
+            <param name="section">Имя объекта.</param>
+            <param name="name">Имя параметра.</param>
+            <returns>Значение параметра.</returns>
+        </member>
+        <member name="M:Recar2.Com.VideoCoreCom.SetSettingValue(System.String,System.String,System.Object)">
+            <summary>Устанавливает значение параметра.</summary>
+            <param name="section">Имя объекта.</param>
+            <param name="name">Имя параметра.</param>
+            <param name="value">Значение параметра.</param>
+            <remarks>Вызов данного метод возможен только после вызова <see cref="M:Recar2.Com.VideoCoreCom.Initialize"/>.</remarks>
+            <exception cref="T:System.InvalidOperationException">Ядро не инициализировано.</exception>
+        </member>
+    </members>
+</doc>
