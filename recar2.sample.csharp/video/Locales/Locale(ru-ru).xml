@@ -21,6 +21,9 @@
       <String Id="IsSavingImages">Сохранять изображения в каталог:</String>
       <String Id="Browse">Обзор</String>
       <String Id="Format">В формате</String>
+      <String Id="AcceptedDecision">Принятое решение</String>
+      <String Id="VideoChannel1Tip">Видео с канала 1</String>
+      <String Id="DetectedVehicleImage">Изображение обнаруженного транспортного средства</String>
     </Scope>
   </Scope>
 </Localization>

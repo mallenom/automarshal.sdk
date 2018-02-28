@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "recar2.sample.video.csharp", "video\recar2.sample.video.csharp.csproj", "{B0A1DD22-4CD0-419A-9E26-49807F15C367}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "recar2.sample.image.csharp", "image\recar2.sample.image.csharp.csproj", "{7B6A418B-599D-4214-875D-A18570F2B8D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "recar2.sample.video.getframes.csharp", "video.getframes\recar2.sample.video.getframes.csharp.csproj", "{1C62BB7A-5B24-48EE-83DA-8A9A4F89F10F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "recar2.sample.video.source", "video.source\recar2.sample.video.source.csproj", "{F6E1FD06-9966-4575-B5F9-9410CC504A20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "video.console", "video.console\video.console.csproj", "{E8308ECF-F053-45FC-AE02-E6ACBF90B7BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0A1DD22-4CD0-419A-9E26-49807F15C367}.Debug|x86.ActiveCfg = Debug|x64
+		{B0A1DD22-4CD0-419A-9E26-49807F15C367}.Debug|x86.Build.0 = Debug|x64
+		{B0A1DD22-4CD0-419A-9E26-49807F15C367}.Release|x86.ActiveCfg = Release|x86
+		{B0A1DD22-4CD0-419A-9E26-49807F15C367}.Release|x86.Build.0 = Release|x86
+		{7B6A418B-599D-4214-875D-A18570F2B8D6}.Debug|x86.ActiveCfg = Debug|x86
+		{7B6A418B-599D-4214-875D-A18570F2B8D6}.Debug|x86.Build.0 = Debug|x86
+		{7B6A418B-599D-4214-875D-A18570F2B8D6}.Release|x86.ActiveCfg = Release|x86
+		{7B6A418B-599D-4214-875D-A18570F2B8D6}.Release|x86.Build.0 = Release|x86
+		{1C62BB7A-5B24-48EE-83DA-8A9A4F89F10F}.Debug|x86.ActiveCfg = Debug|x86
+		{1C62BB7A-5B24-48EE-83DA-8A9A4F89F10F}.Debug|x86.Build.0 = Debug|x86
+		{1C62BB7A-5B24-48EE-83DA-8A9A4F89F10F}.Release|x86.ActiveCfg = Release|x86
+		{1C62BB7A-5B24-48EE-83DA-8A9A4F89F10F}.Release|x86.Build.0 = Release|x86
+		{F6E1FD06-9966-4575-B5F9-9410CC504A20}.Debug|x86.ActiveCfg = Debug|x86
+		{F6E1FD06-9966-4575-B5F9-9410CC504A20}.Debug|x86.Build.0 = Debug|x86
+		{F6E1FD06-9966-4575-B5F9-9410CC504A20}.Release|x86.ActiveCfg = Release|x86
+		{F6E1FD06-9966-4575-B5F9-9410CC504A20}.Release|x86.Build.0 = Release|x86
+		{E8308ECF-F053-45FC-AE02-E6ACBF90B7BB}.Debug|x86.ActiveCfg = Debug|x86
+		{E8308ECF-F053-45FC-AE02-E6ACBF90B7BB}.Debug|x86.Build.0 = Debug|x86
+		{E8308ECF-F053-45FC-AE02-E6ACBF90B7BB}.Release|x86.ActiveCfg = Release|x86
+		{E8308ECF-F053-45FC-AE02-E6ACBF90B7BB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44D06B22-F083-405A-A6E1-EFADF20799E1}
+	EndGlobalSection
+EndGlobal

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, Grids, StdCtrls, Buttons, recar2_com_TLB;
+  Dialogs, ExtCtrls, Grids, StdCtrls, Buttons, JPEG, recar2_com_TLB;
 
 type
   TMainForm = class(TForm)
@@ -181,7 +181,12 @@ begin
 
     StringGrid1.Rows[StringGrid1.RowCount-1][4] := solution.ImageFileName;
 
-    if (FileExists(solution.ImageFileName)) then Image1.Picture.LoadFromFile(solution.ImageFileName);
+    if CheckBoxSaveImages.Checked then
+    begin
+      if(FileExists(solution.ImageFileName)) then Image1.Picture.LoadFromFile(solution.ImageFileName);
+    end;
+
+    //if (FileExists(solution.ImageFileName)) then Image1.Picture.LoadFromFile(solution.ImageFileName);
   except
     Dispose(true);
   end;

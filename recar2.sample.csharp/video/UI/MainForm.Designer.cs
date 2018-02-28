@@ -49,8 +49,8 @@ namespace Recar2.Samples
 			this._txtPlate = new System.Windows.Forms.TextBox();
 			this._toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this._imagePlateZone = new Mallenom.Imaging.Image();
-			this._imgVideo = new Mallenom.Imaging.Image();
 			this._imgProcessed = new Mallenom.Imaging.Image();
+			this._imgVideo = new Mallenom.Imaging.Image();
 			this._txtMotion = new System.Windows.Forms.Label();
 			this._logNumbers = new Mallenom.Diagnostics.Logs.LogView();
 			this._grpSetup = new System.Windows.Forms.GroupBox();
@@ -65,7 +65,6 @@ namespace Recar2.Samples
 			label1 = new System.Windows.Forms.Label();
 			groupBox1.SuspendLayout();
 			groupBox2.SuspendLayout();
-			groupBox3.SuspendLayout();
 			groupBox4.SuspendLayout();
 			this._grpSetup.SuspendLayout();
 			this._localeMenu.SuspendLayout();
@@ -74,8 +73,8 @@ namespace Recar2.Samples
 			// groupBox1
 			// 
 			groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left) 
+			| System.Windows.Forms.AnchorStyles.Right)));
 			groupBox1.Controls.Add(this._logView);
 			groupBox1.Controls.Add(this._ligViewToolStrip);
 			groupBox1.Location = new System.Drawing.Point(3, 518);
@@ -196,7 +195,7 @@ namespace Recar2.Samples
 			// _txtSaveImagesDirectory
 			// 
 			this._txtSaveImagesDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this._txtSaveImagesDirectory.Enabled = false;
 			this._txtSaveImagesDirectory.Location = new System.Drawing.Point(6, 46);
 			this._txtSaveImagesDirectory.Name = "_txtSaveImagesDirectory";
@@ -257,6 +256,18 @@ namespace Recar2.Samples
 			this._imagePlateZone.TabIndex = 13;
 			this._toolTip.SetToolTip(this._imagePlateZone, "Изображение обнаруженного ТС");
 			// 
+			// _imgProcessed
+			// 
+			this._imgProcessed.FooterFont = new System.Drawing.Font("Courier New", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+			this._imgProcessed.ForeColor = System.Drawing.Color.GhostWhite;
+			this._imgProcessed.Location = new System.Drawing.Point(390, 29);
+			this._imgProcessed.Name = "_imgProcessed";
+			this._imgProcessed.Size = new System.Drawing.Size(384, 288);
+			this._imgProcessed.SizeMode = Mallenom.Imaging.ImageSizeMode.Zoom;
+			this._imgProcessed.TabIndex = 0;
+			this._imgProcessed.Text = "//AcceptedDicision//";
+			this._toolTip.SetToolTip(this._imgProcessed, "Изображение обнаруженного ТС");
+			// 
 			// _imgVideo
 			// 
 			this._imgVideo.DoubleBuffer = true;
@@ -266,19 +277,7 @@ namespace Recar2.Samples
 			this._imgVideo.Size = new System.Drawing.Size(384, 288);
 			this._imgVideo.SizeMode = Mallenom.Imaging.ImageSizeMode.Zoom;
 			this._imgVideo.TabIndex = 0;
-			this._toolTip.SetToolTip(this._imgVideo, "Видео с канала 1");
 			this._imgVideo.DoubleClick += new System.EventHandler(this._imgVideo_DoubleClick);
-			// 
-			// _imgProcessed
-			// 
-			this._imgProcessed.FooterFont = new System.Drawing.Font("Courier New", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-			this._imgProcessed.Location = new System.Drawing.Point(390, 29);
-			this._imgProcessed.Name = "_imgProcessed";
-			this._imgProcessed.Size = new System.Drawing.Size(384, 288);
-			this._imgProcessed.SizeMode = Mallenom.Imaging.ImageSizeMode.Zoom;
-			this._imgProcessed.TabIndex = 0;
-			this._imgProcessed.Text = "Принятое решение";
-			this._toolTip.SetToolTip(this._imgProcessed, "Изображение обнаруженного ТС");
 			// 
 			// _txtMotion
 			// 
@@ -293,7 +292,7 @@ namespace Recar2.Samples
 			// _logNumbers
 			// 
 			this._logNumbers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this._logNumbers.AppenderName = "numbers";
 			this._logNumbers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this._logNumbers.Location = new System.Drawing.Point(484, 380);
@@ -335,7 +334,7 @@ namespace Recar2.Samples
 			// _localeMenu
 			// 
 			this._localeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._localeSelectorMenu});
+			this._localeSelectorMenu});
 			this._localeMenu.Location = new System.Drawing.Point(3, 3);
 			this._localeMenu.Name = "_localeMenu";
 			this._localeMenu.Size = new System.Drawing.Size(770, 24);
@@ -376,7 +375,6 @@ namespace Recar2.Samples
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			groupBox1.ResumeLayout(false);
 			groupBox2.ResumeLayout(false);
-			groupBox3.ResumeLayout(false);
 			groupBox4.ResumeLayout(false);
 			groupBox4.PerformLayout();
 			this._grpSetup.ResumeLayout(false);

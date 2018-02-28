@@ -21,6 +21,9 @@
       <String Id="IsSavingImages">Save the image in the catalog:</String>
       <String Id="Browse">Browse</String>
       <String Id="Format">Format</String>
+      <String Id="AcceptedDecision">Accepted decision</String>
+      <String Id="VideoChannel1Tip">Video</String>
+      <String Id="DetectedVehicleImage">Detected vehicle image</String>
     </Scope>
   </Scope>
 </Localization>

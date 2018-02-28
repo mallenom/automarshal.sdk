@@ -84,11 +84,9 @@ BOOL MainForm::OnInitDialog()
 
 void MainForm::UpdateGrid(IRecarSolution* solution)
 {
-	_bstr_t number;
-	_bstr_t filename;
 	auto list = static_cast<CListCtrl*>(GetDlgItem(IDC_LIST_NUMBERS));
 	int num = list->GetItemCount();
-	number = solution->GetNumber();
+	_bstr_t number = solution->GetNumber();
 	int index = list->InsertItem(num, number);
 	wchar_t str[128];
 	::_ltow_s(solution->GetEventId(), str, 10);
@@ -105,7 +103,7 @@ void MainForm::UpdateGrid(IRecarSolution* solution)
 	case 2: list->SetItemText(index, 4, L"Up down"); break;
 	}
 	list->SetItemText(index, 5, L"Event raised");
-	filename = solution->GetImageFileName();
+	_bstr_t filename = solution->GetImageFileName();
 	list->SetItemText(index, 6, filename);
 
 	::SysFreeString(number);
@@ -114,11 +112,10 @@ void MainForm::UpdateGrid(IRecarSolution* solution)
 
 void MainForm::UpdateGrid(RecarSolutionStruct* solution)
 {
-	_bstr_t number;
-	_bstr_t filename;
+	//_bstr_t filename;
 	auto list = static_cast<CListCtrl*>(GetDlgItem(IDC_LIST_NUMBERS));
 	int num = list->GetItemCount();
-	number = solution->Number;
+	_bstr_t number = solution->Number;
 	int index = list->InsertItem(num, number);
 	wchar_t str[128];
 	::_ltow_s(solution->EventId, str, 10);
@@ -137,7 +134,7 @@ void MainForm::UpdateGrid(RecarSolutionStruct* solution)
 	list->SetItemText(index, 5, L"Callback");
 
 	::SysFreeString(number);
-	::SysFreeString(filename);
+	//::SysFreeString(filename);
 }
 
 
@@ -372,11 +369,11 @@ void MainForm::SetSettingValue(Setting setting, int value)
 		_core->SetSettingValue(section, name, value);
 		_core->SaveSettings();
 	}
-	catch(exception exc)
+	catch(const exception& exc)
 	{
 		::MessageBoxW(GetSafeHwnd(), reinterpret_cast<LPCWSTR>(exc.what()), L"Set settings fail.", MB_OK);
 	}
-	catch(_com_error exc)
+	catch(const _com_error& exc)
 	{
 		::MessageBoxW(GetSafeHwnd(), exc.ErrorMessage(), L"Set settings fail.", MB_OK);
 	}

@@ -49,11 +49,16 @@ namespace Recar2.Samples
 			public void NotifyChanged()
 			{
 				var handler = LocaleChanged;
-				if(handler != null) LocaleChanged(this, EventArgs.Empty);
+				if(handler != null) LocaleChanged.Invoke(this, EventArgs.Empty);
 			}
 		}
 
 		private static readonly LocalizationScope LocalizationScope = new LocalizationScope(@"Recar2.MainForm");
+
+		private static string GetLocalizedString(string stringId, string fallback = null)
+		{
+			return Locale.Current.GetString(LocalizationScope + stringId, fallback);
+		}
 
 		private LocaleSelector _localeSelector;
 
@@ -84,11 +89,21 @@ namespace Recar2.Samples
 
 			// Локализация
 			this.Localize(LocalizationScope);
+
+			_imgProcessed.Text = GetLocalizedString("AcceptedDecision");
+
 			Text = string.Format(Locale.Current.Culture, Locale.Current.GetString(LocalizationScope + "Title", fallback: "Example {0} / {1}"), core.Version, core.FullVersion);
 			_localeSelector = LocaleSelector.Create(_localeSelectorMenu);
 			_localeObserver = new LocaleObserver();
+
+			_toolTip.SetLocalizedToolTip(_imgVideo, LocalizationScope + "VideoChannel1Tip");
+			_toolTip.SetLocalizedToolTip(_imgProcessed, LocalizationScope + "DetectedVehicleImage");
+			
 			Locale.ObserveCurrentChanged(_localeObserver);
-			_localeObserver.LocaleChanged += (sender, args) => { Text = string.Format(Locale.Current.Culture, Locale.Current.GetString(LocalizationScope + "Title", fallback: "Example {0} / {1}"), core.Version, core.FullVersion); };
+			_localeObserver.LocaleChanged += (sender, args) => {
+				Text = string.Format(Locale.Current.Culture, Locale.Current.GetString(LocalizationScope + "Title", fallback: "Example {0} / {1}"), core.Version, core.FullVersion);
+				_imgProcessed.Text = GetLocalizedString("AcceptedDecision");
+			};
 
 			_imgVideo.Renderer = ImageRenderer.GDI;
 			_imgProcessed.Renderer = ImageRenderer.GDI;
@@ -155,7 +170,7 @@ namespace Recar2.Samples
 			else
 			{
 				_txtPlate.Text = args.Number.Text;
-				NumbersLog.InfoFormat("'{0}', тип: {1}, источник: {2}.", args.Number, args.Number.NumberType, args.Channel);
+				NumbersLog.InfoFormat("'{0}', type: {1}, source: {2}.", args.Number, args.Number.NumberType, args.Channel);
 				_imgProcessed.Matrix = args.Matrix;
 				var zoneRect = Rectangle.Intersect(args.Number.Zone.ToRect(), new Rectangle(0, 0, args.Matrix.Width, args.Matrix.Height));
 				args.Matrix.CopyTo(_numberMatrix, zoneRect);
